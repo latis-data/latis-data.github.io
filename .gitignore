@@ -1,0 +1,9 @@
+# Eclipse
+.project
+.settings/
+
+# Mac OSX
+*.DS_Store
+
+# Editor backups
+*~
