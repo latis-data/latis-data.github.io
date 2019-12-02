@@ -3,7 +3,7 @@
     <xs:redefine schemaLocation="http://latis-data.io/schemas/1.0/fdml.xsd">
         <xs:attributeGroup name="adapter_attributes">
             <xs:attributeGroup ref="adapter_attributes"/>
-            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="id" type="xs:string" use="required"/>
         </xs:attributeGroup>
         <xs:attributeGroup name="scalar_attributes">
             <xs:attributeGroup ref="scalar_attributes"/>
