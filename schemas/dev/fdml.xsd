@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           version="1.0">
+
+    <xs:element name="dataset">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="source"/>
+                <xs:element ref="adapter"/>
+                <xs:element ref="datatype"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="title" type="xs:string"/>
+            <xs:attribute name="description" type="xs:string"/>
+            <xs:attribute name="history" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="source">
+        <xs:complexType>
+            <xs:attribute name="uri" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="adapter">
+        <xs:complexType>
+            <xs:attributeGroup ref="adapter_attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attributeGroup name="adapter_attributes">
+        <xs:attribute name="class"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="scalar_attributes">
+        <xs:attribute name="id" use="required"/>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="boolean"/>
+                    <xs:enumeration value="byte"/>
+                    <xs:enumeration value="char"/>
+                    <xs:enumeration value="short"/>
+                    <xs:enumeration value="int"/>
+                    <xs:enumeration value="long"/>
+                    <xs:enumeration value="float"/>
+                    <xs:enumeration value="double"/>
+                    <xs:enumeration value="binary"/>
+                    <xs:enumeration value="string"/>
+                    <xs:enumeration value="bigint"/>
+                    <xs:enumeration value="bigdecimal"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="alias" type="xs:string"/>
+        <xs:attribute name="origName" type="xs:string"/> <!--not generally applicable-->
+        <xs:attribute name="title" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="missingValue" type="xs:string"/>
+        <xs:attribute name="units" type="xs:string"/>
+        <xs:attribute name="length" type="xs:int"/>
+        <xs:attribute name="coverage" type="xs:string"/>
+        <xs:attribute name="validRange" type="xs:string"/>
+        <xs:attribute name="cadence" type="xs:string"/>
+        <xs:attribute name="resolution" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:element name="datatype" abstract="true"/>
+    <xs:element name="scalar" substitutionGroup="datatype">
+        <xs:complexType>
+            <xs:attributeGroup ref="scalar_attributes"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tuple" substitutionGroup="datatype">
+        <xs:complexType>
+            <xs:choice minOccurs="2" maxOccurs="unbounded">
+                <xs:element ref="datatype"/>
+            </xs:choice>
+            <xs:attribute name="id"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="function" substitutionGroup="datatype">
+        <xs:complexType>
+            <xs:choice minOccurs="2" maxOccurs="2">
+                <xs:element ref="datatype"/>
+            </xs:choice>
+            <xs:attribute name="id"/>
+            <xs:attribute name="shape"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
