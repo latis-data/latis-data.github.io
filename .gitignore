@@ -7,3 +7,6 @@
 
 # Editor backups
 *~
+
+# IntelliJ
+/latis-data.github.io.iml
